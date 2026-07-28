@@ -1,28 +1,37 @@
 # Releasing (maintainers)
 
-## Prerequisites
+Publishes use [npm trusted publishing](https://docs.npmjs.com/trusted-publishers)
+(OIDC from GitHub Actions). No long-lived `NPM_TOKEN` is required.
+
+## Trusted publisher (one-time)
+
+On npmjs.com → **@blitzd/resizable-panels** → **Settings** → **Trusted
+publishing** → **GitHub Actions**:
+
+| Field | Value |
+| --- | --- |
+| Organization or user | `blitzd-dev` |
+| Repository | `resizable-panels` |
+| Workflow filename | `publish.yml` |
+| Environment | _(leave empty)_ |
+| Allowed actions | `npm publish` |
+
+Filename only — not `.github/workflows/publish.yml`. Values are
+case-sensitive.
+
+Optional harden after it works: package **Settings → Publishing access** →
+require 2FA and disallow tokens.
+
+## Each release
 
 1. `verify:release` is green on `main`.
-2. Repo secret **`NPM_TOKEN`** is set (classic npm automation token with
-   publish access to `@blitzd`).
-3. Package homepage / docs URLs resolve publicly.
-
-Add the token:
+2. Version in `packages/resizable-panels/package.json` matches the tag.
+3. Changelog entry exists for that version.
+4. Docs / homepage URLs resolve.
 
 ```sh
-gh secret set NPM_TOKEN
-# paste the token when prompted
-```
-
-## Publish
-
-Tagging `v*` runs [`.github/workflows/publish.yml`](./workflows/publish.yml)
-(build, provenance publish to npm).
-
-```sh
-# after bumping packages/resizable-panels/package.json version + changelog
 git tag v0.1.0
 git push origin v0.1.0
 ```
 
-Confirm the GitHub Actions **Publish** run and the npm package page.
+Watch the **Publish** workflow. Provenance is generated automatically.

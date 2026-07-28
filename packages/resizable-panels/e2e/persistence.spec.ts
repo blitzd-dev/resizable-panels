@@ -917,9 +917,13 @@ test.describe("Persistence — persistence.key", () => {
       await expectSumInvariant(scope(page));
       await expectSumInvariant(scope(page), "height");
 
-      // And inner snapshot was never written by the seed.
+      // Seed isolation: the outer seed must not populate the inner key with
+      // outer panels. The inner group may write its own layout after mount;
+      // that is unrelated to the outer seed.
+      await page.waitForTimeout(WRITE_DEBOUNCE_MS);
       const inner = await readInner(page);
-      expect(inner).toBeNull();
+      expect(inner?.[SIDEBAR]).toBeUndefined();
+      expect(inner?.[NESTED_INSPECTOR]).toBeUndefined();
     });
 
     test("both groups hydrate from independent seeded snapshots", async ({

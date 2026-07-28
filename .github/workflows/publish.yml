@@ -1,9 +1,7 @@
 name: Publish
 
-# Tag-triggered publish for @blitzd/resizable-panels. Push an annotated
-# `vX.Y.Z` tag whose version matches packages/resizable-panels/package.json.
-# The job re-runs the full packaging gate before publishing, and publishes
-# with npm provenance.
+# Tag-triggered publish for @blitzd/resizable-panels via npm trusted publishing
+# (OIDC). Configure the trusted publisher on npmjs.com — see .github/RELEASING.md.
 on:
   push:
     tags:
@@ -15,7 +13,7 @@ jobs:
     timeout-minutes: 30
     permissions:
       contents: read
-      # Required for npm provenance attestation.
+      # Required for npm OIDC trusted publishing + provenance.
       id-token: write
     defaults:
       run:
@@ -27,17 +25,16 @@ jobs:
           bun-version: 1.2.15
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
-          registry-url: "https://registry.npmjs.org"
+          # Trusted publishing needs Node ≥ 22.14 and npm ≥ 11.5.1.
+          node-version: 22
+          registry-url: https://registry.npmjs.org
+      - name: Install latest npm (OIDC publish support)
+        run: npm install -g npm@latest
       - name: Install dependencies
         working-directory: ${{ github.workspace }}
         run: bun install --frozen-lockfile
       - name: Install Playwright browsers
         run: bunx playwright install --with-deps chromium firefox webkit
-      # prepack (build + entry-point verification) and the packed tarball smoke
-      # test are the gate (§15). The dry-run gate additionally checks tag/version
-      # agreement, the changelog entry, tarball contents, and that the metadata
-      # URLs resolve.
       - name: Build and verify entry points
         run: bun run prepack
       - name: Packed tarball smoke test
@@ -46,7 +43,14 @@ jobs:
         run: bun run verify:publish
         env:
           RELEASE_TAG: ${{ github.ref_name }}
-      - name: Publish to npm with provenance
-        run: npm publish --provenance --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      # No NODE_AUTH_TOKEN — a token can shadow OIDC. Provenance is automatic
+      # under trusted publishing. Skip if this version is already on the
+      # registry (e.g. bootstrap publish before the tag).
+      - name: Publish to npm (trusted publishing / OIDC)
+        run: |
+          version="$(node -p "require('./package.json').version")"
+          if npm view "@blitzd/resizable-panels@${version}" version >/dev/null 2>&1; then
+            echo "Already published @blitzd/resizable-panels@${version}; skipping."
+            exit 0
+          fi
+          npm publish --access public

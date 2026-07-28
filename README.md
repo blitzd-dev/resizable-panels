@@ -28,3 +28,9 @@ The library is in `packages/resizable-panels`. The demo is in
 
 See the [library README](packages/resizable-panels/README.md) for
 usage.
+
+## Contributing
+
+See [.github/CONTRIBUTING.md](.github/CONTRIBUTING.md). By participating you
+agree to the [Code of Conduct](.github/CODE_OF_CONDUCT.md). Security reports:
+[.github/SECURITY.md](.github/SECURITY.md).

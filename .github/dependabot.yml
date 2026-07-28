@@ -1,0 +1,12 @@
+version: 2
+updates:
+  # JS deps are managed with Bun (`bun.lock`). Dependabot's npm ecosystem
+  # expects a package-lock.json; keep Actions coverage here and bump JS deps
+  # in-repo when needed.
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 5
+    labels:
+      - dependencies

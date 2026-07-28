@@ -9,7 +9,7 @@ Security fixes are applied to the latest published release of
 
 Please **do not** open a public GitHub issue for security reports.
 
-Email **hello@blitzd.dev** with:
+Email **contact@blitzd.dev** with:
 
 - A description of the issue
 - Steps to reproduce (or a proof of concept)

@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /demos/stress
+
+Sitemap: https://resizable-panels.blitzd.dev/sitemap.xml

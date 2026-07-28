@@ -1,0 +1,32 @@
+{
+  "name": "blitzd-resizable-panels-monorepo",
+  "private": true,
+  "version": "0.0.0",
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "scripts": {
+    "dev": "bun --filter '@blitzd/panels-demo' dev",
+    "build": "bun --filter '@blitzd/resizable-panels' build && bun --filter '@blitzd/panels-demo' build",
+    "build:lib": "bun --filter '@blitzd/resizable-panels' build",
+    "build:demo": "bun --filter '@blitzd/panels-demo' build",
+    "test:package": "bun --filter '@blitzd/resizable-panels' test:package",
+    "test": "bun --filter '*' test",
+    "typecheck": "bun --filter '*' typecheck",
+    "check:docs": "bun --filter '@blitzd/panels-demo' check:docs",
+    "verify:release": "bun run build && bun run typecheck && bun run check:docs && bun run test && bun run test:package && bun --filter '@blitzd/resizable-panels' test:e2e:react18 && bun --filter '@blitzd/resizable-panels' test:e2e:react19",
+    "lint": "biome check .",
+    "lint:fix": "biome check --write .",
+    "format": "biome format --write ."
+  },
+  "devDependencies": {
+    "@biomejs/biome": "2.4.16"
+  },
+  "overrides": {
+    "brace-expansion": "5.0.7",
+    "fast-uri": "3.1.2",
+    "undici": "7.28.0",
+    "vite": "8.0.16"
+  }
+}

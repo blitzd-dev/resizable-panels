@@ -1,0 +1,42 @@
+export const meta = {
+  slug: "2026-08-focused-release-title",
+  version: "0.2.0",
+  date: "2026-08-01",
+  title: "A focused release title",
+  summary: "One short sentence describing the release.",
+  releaseUrl: "https://github.com/blitzd-dev/resizable-panels/releases/tag/v0.2.0",
+  compareUrl: "https://github.com/blitzd-dev/resizable-panels/compare/v0.1.0...v0.2.0",
+  draft: true,
+}
+
+Start with a short paragraph describing the theme of the release. This is
+regular **Markdown**, including [links](/docs/overview) and `inline code`.
+
+{/* Keep only notable user-facing changes. Group kinds in this order:
+    added, changed, deprecated, removed, fixed, security. Delete unused rows. */}
+
+<Changes kind="added">
+  <Change title="Feature name">
+    Explain the user-facing change and why it matters.
+  </Change>
+</Changes>
+
+<Changes kind="changed">
+  <Change title="Improvement name">
+    Explain what is now smoother, faster, or clearer.
+  </Change>
+</Changes>
+
+<Changes kind="fixed">
+  <Change title="Fix name">
+    Explain the behavior that was corrected.
+  </Change>
+</Changes>
+
+{/* For a breaking change, place it in a changed or removed group, add the
+    `breaking` prop to Change, and include affected users plus migration steps. */}
+
+## Optional deeper section
+
+Use normal Markdown here, or add `Callout`, `Media`, and fenced code blocks when
+the release needs richer supporting material.

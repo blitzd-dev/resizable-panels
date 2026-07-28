@@ -1,0 +1,104 @@
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="48 48 928 928"
+  role="img"
+  aria-label="@blitzd/resizable-panels"
+>
+  <!--
+    Favicon crop of brand/blitzd-resizable-panels.svg: flush to the icon plate,
+    no drop shadow. Tiny tab icons need every pixel; the full mark keeps margin
+    + shadow for UI / social use.
+  -->
+  <defs>
+    <linearGradient id="background" x1="118" y1="72" x2="906" y2="952" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#11121a" />
+      <stop offset="1" stop-color="#06070a" />
+    </linearGradient>
+
+    <linearGradient id="panelSurface" x1="128" y1="128" x2="896" y2="896" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#251e32" />
+      <stop offset="0.52" stop-color="#1a1623" />
+      <stop offset="1" stop-color="#111016" />
+    </linearGradient>
+
+    <linearGradient id="bolt" x1="512" y1="166" x2="512" y2="858" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#9b7bff" />
+      <stop offset="0.48" stop-color="#7c3cff" />
+      <stop offset="1" stop-color="#5424d6" />
+    </linearGradient>
+
+    <radialGradient id="boltGlow" cx="0" cy="0" r="1" gradientTransform="translate(512 512) rotate(90) scale(360)">
+      <stop stop-color="#7c3cff" stop-opacity="0.28" />
+      <stop offset="1" stop-color="#7c3cff" stop-opacity="0" />
+    </radialGradient>
+
+    <filter id="softGlow" x="-50%" y="-50%" width="200%" height="200%" color-interpolation-filters="sRGB">
+      <feGaussianBlur stdDeviation="30" />
+    </filter>
+
+    <clipPath id="iconClip">
+      <rect x="48" y="48" width="928" height="928" rx="96" />
+    </clipPath>
+  </defs>
+
+  <rect x="48" y="48" width="928" height="928" rx="96" fill="url(#background)" />
+
+  <g clip-path="url(#iconClip)">
+    <ellipse cx="512" cy="512" rx="390" ry="390" fill="url(#boltGlow)" filter="url(#softGlow)" />
+
+    <g stroke="#ffffff" stroke-opacity="0.09" stroke-width="2">
+      <rect x="128" y="128" width="208" height="187" rx="30" fill="url(#panelSurface)" />
+      <rect x="128" y="335" width="208" height="561" rx="30" fill="url(#panelSurface)" />
+      <rect x="356" y="128" width="328" height="524" rx="32" fill="url(#panelSurface)" />
+      <rect x="356" y="672" width="328" height="224" rx="32" fill="url(#panelSurface)" />
+      <rect x="704" y="128" width="192" height="449" rx="30" fill="url(#panelSurface)" />
+      <rect x="704" y="597" width="192" height="299" rx="30" fill="url(#panelSurface)" />
+    </g>
+
+    <svg x="236" y="166" width="552" height="688" viewBox="289 229 445 555" overflow="visible">
+      <path
+        fill="url(#bolt)"
+        fill-rule="evenodd"
+        stroke="#b9a4ff"
+        stroke-opacity="0.32"
+        stroke-width="3"
+        stroke-linejoin="round"
+        d="
+          M596 232
+          C606 234 617 244 614 258
+          L572 400
+          C567 418 580 434 598 434
+          H704
+          C716 434 727 441 731 452
+          C734 462 730 472 723 480
+          L450 775
+          C444 781 437 783 427 781
+          C417 779 406 769 409 755
+          L451 613
+          C456 595 443 579 425 579
+          H319
+          C307 579 296 572 292 561
+          C289 551 293 541 300 533
+          L573 238
+          C579 232 586 230 596 232
+          Z
+
+          M552 348
+          L522 439
+          C517 456 529 471 546 471
+          H659
+          C668 471 672 481 665 488
+          L495 669
+          C481 684 467 678 471 665
+          L501 574
+          C506 557 494 542 477 542
+          H364
+          C355 542 351 532 358 525
+          L528 344
+          C542 329 556 335 552 348
+          Z
+        "
+      />
+    </svg>
+  </g>
+</svg>

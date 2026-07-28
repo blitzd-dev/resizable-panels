@@ -1,0 +1,3 @@
+# SPA fallback for client-routed paths. Existing files (prerendered HTML,
+# /docs/*.md, llms.txt, assets) are served first by Cloudflare Pages.
+/*    /index.html   200

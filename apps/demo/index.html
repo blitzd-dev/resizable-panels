@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" sizes="any" />
+    <link rel="apple-touch-icon" href="/favicon.svg" />
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      title="@blitzd/resizable-panels changelog"
+      href="/changelog.xml"
+    />
+    <link
+      rel="alternate"
+      type="application/feed+json"
+      title="@blitzd/resizable-panels changelog"
+      href="/changelog.json"
+    />
+    <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Headless, animated, resizable panel layout primitives for React. Docked sidebars, peer splits, collapse to rails, persistence, and full keyboard support."
+    />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://resizable-panels.blitzd.dev/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="@blitzd/resizable-panels" />
+    <meta
+      property="og:title"
+      content="@blitzd/resizable-panels · Resizable panels for React"
+    />
+    <meta
+      property="og:description"
+      content="Headless, animated, resizable panel layout primitives for React. Docked sidebars, peer splits, collapse to rails, persistence, and full keyboard support."
+    />
+    <meta property="og:url" content="https://resizable-panels.blitzd.dev/" />
+    <meta name="twitter:card" content="summary" />
+    <meta
+      name="twitter:title"
+      content="@blitzd/resizable-panels · Resizable panels for React"
+    />
+    <meta
+      name="twitter:description"
+      content="Headless, animated, resizable panel layout primitives for React. Docked sidebars, peer splits, collapse to rails, persistence, and full keyboard support."
+    />
+    <title>@blitzd/resizable-panels · Resizable panels for React</title>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "@blitzd/resizable-panels",
+        "applicationCategory": "DeveloperApplication",
+        "operatingSystem": "Web",
+        "description": "Headless, animated, resizable panel layout primitives for React.",
+        "url": "https://resizable-panels.blitzd.dev/",
+        "downloadUrl": "https://www.npmjs.com/package/@blitzd/resizable-panels",
+        "codeRepository": "https://github.com/blitzd-dev/resizable-panels",
+        "programmingLanguage": "TypeScript"
+      }
+    </script>
+    <script>
+      // Apply the saved theme before paint so there's no flash on reload.
+      // Defaults to dark when nothing is stored.
+      (() => {
+        try {
+          const stored = localStorage.getItem("resizable-panels:theme");
+          const isDark = stored ? stored === "dark" : true;
+          document.documentElement.classList.toggle("dark", isDark);
+        } catch {
+          document.documentElement.classList.add("dark");
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

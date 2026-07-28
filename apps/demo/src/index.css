@@ -1,0 +1,370 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+/* Latin (+ ext) only — drop cyrillic/greek subsets from the critical CSS. */
+@font-face {
+  font-family: "Inter Variable";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 100 900;
+  src: url("@fontsource-variable/inter/files/inter-latin-ext-wght-normal.woff2")
+    format("woff2-variations");
+  unicode-range:
+    U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304,
+    U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB,
+    U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: "Inter Variable";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 100 900;
+  src: url("@fontsource-variable/inter/files/inter-latin-wght-normal.woff2")
+    format("woff2-variations");
+  unicode-range:
+    U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC,
+    U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212,
+    U+2215, U+FEFF, U+FFFD;
+}
+@plugin "@tailwindcss/typography";
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  --radius: 0.625rem;
+
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.145 0 0);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.145 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.145 0 0);
+  --primary: oklch(0.205 0 0);
+  --primary-foreground: oklch(0.985 0 0);
+  --secondary: oklch(0.97 0 0);
+  --secondary-foreground: oklch(0.205 0 0);
+  --muted: oklch(0.97 0 0);
+  --muted-foreground: oklch(0.556 0 0);
+  --accent: oklch(0.97 0 0);
+  --accent-foreground: oklch(0.205 0 0);
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: oklch(0.922 0 0);
+  --input: oklch(0.922 0 0);
+  --ring: oklch(0.708 0 0);
+  --tooltip: oklch(0.269 0 0);
+  --tooltip-foreground: oklch(0.985 0 0);
+
+  --sidebar: oklch(0.985 0 0);
+  --sidebar-foreground: oklch(0.145 0 0);
+  --sidebar-primary: oklch(0.205 0 0);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.97 0 0);
+  --sidebar-accent-foreground: oklch(0.205 0 0);
+  --sidebar-border: oklch(0.922 0 0);
+  --sidebar-ring: oklch(0.708 0 0);
+
+  --resizable-panels-resize-handle-color: var(--primary);
+
+  --chart-1: oklch(0.87 0 0);
+
+  --chart-2: oklch(0.556 0 0);
+
+  --chart-3: oklch(0.439 0 0);
+
+  --chart-4: oklch(0.371 0 0);
+
+  --chart-5: oklch(0.269 0 0);
+}
+
+.dark {
+  --background: oklch(0.145 0 0);
+  --foreground: oklch(0.985 0 0);
+  --card: oklch(0.205 0 0);
+  --card-foreground: oklch(0.985 0 0);
+  --popover: oklch(0.205 0 0);
+  --popover-foreground: oklch(0.985 0 0);
+  --primary: oklch(0.922 0 0);
+  --primary-foreground: oklch(0.205 0 0);
+  --secondary: oklch(0.269 0 0);
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.269 0 0);
+  --muted-foreground: oklch(0.708 0 0);
+  --accent: oklch(0.269 0 0);
+  --accent-foreground: oklch(0.985 0 0);
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.556 0 0);
+  --tooltip: oklch(0.269 0 0);
+  --tooltip-foreground: oklch(0.985 0 0);
+
+  --sidebar: oklch(0.205 0 0);
+  --sidebar-foreground: oklch(0.985 0 0);
+  --sidebar-primary: oklch(0.488 0.243 264.376);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.269 0 0);
+  --sidebar-accent-foreground: oklch(0.985 0 0);
+  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-ring: oklch(0.556 0 0);
+  --chart-1: oklch(0.87 0 0);
+  --chart-2: oklch(0.556 0 0);
+  --chart-3: oklch(0.439 0 0);
+  --chart-4: oklch(0.371 0 0);
+  --chart-5: oklch(0.269 0 0);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-tooltip: var(--tooltip);
+  --color-tooltip-foreground: var(--tooltip-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --font-heading: var(--font-sans);
+  /* The fallback chain lives here so `font-sans` is the single place the
+     typeface is decided. Declaring a competing `font-family` on `body` would
+     silently win over the inherited value and strand the webfont. */
+  --font-sans: 'Inter Variable', system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+@layer base {
+  * {
+    border-color: var(--border);
+    @apply border-border outline-ring/50;
+  }
+  html, body, #root {
+    height: 100%;
+  }
+  html {
+    @apply font-sans;
+    /* Reserve scrollbar space so inner overflow can't shift the layout. */
+    scrollbar-gutter: stable;
+  }
+  body {
+    /* Viewport app: every scroll lives in an inner ScrollArea. Clamping the
+       body means a stray element below the fold (a leaked portal, an HMR
+       remnant, a mispositioned popup) can never mint a second page scroll
+       under the docs footer. */
+    overflow: hidden;
+    margin: 0;
+    background: var(--background);
+    color: var(--foreground);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    @apply bg-background text-foreground;
+  }
+  ::selection {
+    background-color: oklch(from var(--primary) l c h / 0.25);
+    color: var(--primary);
+  }
+}
+
+/* Prerender captures panel max-width at the Playwright viewport. Without this,
+   peer shell panels stay that wide (left-aligned) until React remounts and
+   remeasures — the classic “flash left, then jump to center.” */
+[data-app-shell] [data-resizable-panels-panel][data-kind="peer"] {
+  max-width: none !important;
+}
+
+/* Inline doc demos: keep the resize handle visible at rest so readers
+   notice it's draggable without having to hover, and brighten on
+   hover/focus to confirm. The library default hides the handle so it
+   doesn't clash with consumer borders — fine for real apps, but in a
+   docs context we want it discoverable. We override the pink primary
+   color with the neutral border tone so the seam reads as a natural
+   divider rather than a brand accent. */
+/* First paint only: kill size transitions inside demo frames so panels
+   don't tween from an empty measure into defaultSize (content shoves right).
+   `data-demo-layout-ready` is set after useLayoutEffect in DemoSurface. */
+[data-resizable-panels-demo-frame]:not([data-demo-layout-ready])
+  [data-resizable-panels-panel],
+[data-resizable-panels-demo-frame]:not([data-demo-layout-ready])
+  [data-resizable-panels-panel-content],
+[data-resizable-panels-demo-frame]:not([data-demo-layout-ready])
+  [data-resizable-panels-panel-viewport] {
+  transition: none !important;
+}
+
+[data-resizable-panels-demo-frame] {
+  /* Flatten the translucent border token against the card surface. An
+     alpha color changes shade wherever a nested separator crosses panels
+     with different surfaces (for example editor vs terminal). The opaque
+     mix keeps every segment of a divider the same rendered color, while the
+     card base matches the surrounding demo borders closely enough to remain
+     visible against both the solid and tinted panel surfaces. */
+  --resizable-panels-resize-handle-color: color-mix(
+    in oklab,
+    var(--foreground) 10%,
+    var(--card)
+  );
+}
+/* A fully-hidden collapsed panel (zero rail; the library stamps aria-hidden)
+   is a 0-content sliver whose own Tailwind border would stack against its
+   neighbor's into a 2px double hairline. Drop its borders; visible rails
+   (non-zero collapsedSize, no aria-hidden) keep theirs. */
+[data-resizable-panels-panel][data-state="collapsed"][aria-hidden="true"] {
+  border-width: 0;
+}
+[data-resizable-panels-demo-frame] [data-resizable-panels-resize-handle-line] {
+  opacity: 1 !important;
+}
+[data-resizable-panels-demo-frame] [data-resizable-panels-resize-handle][data-orientation="vertical"] [data-resizable-panels-resize-handle-line] {
+  width: 1px !important;
+}
+[data-resizable-panels-demo-frame] [data-resizable-panels-resize-handle][data-orientation="horizontal"] [data-resizable-panels-resize-handle-line] {
+  height: 1px !important;
+}
+/* React drives the LINE's own data-active from hovered/focused/pressed and
+   suppresses it on sibling handles during a drag; at a coincident seam it is
+   run-aware — hovering either half lights the run's one elected line (R-28),
+   which the handle element's truthful data-active cannot express. Don't add
+   a parallel `:hover` selector — it bypasses that gate and lights up
+   neighbor handles while you're dragging. */
+[data-resizable-panels-demo-frame] [data-resizable-panels-resize-handle-line][data-active] {
+  background: var(--primary) !important;
+}
+
+/* Home hero autoplay: the scripted cursor can't produce the React-driven
+   hover/press states (it drives sizes directly rather than dispatching
+   events), so drive-drag sets `data-fake-active` on the grabbed handle for
+   the duration of the gesture. Mirror the library's active treatment —
+   !important because the library writes opacity inline. */
+[data-home-hero] [data-resizable-panels-resize-handle][data-fake-active] [data-resizable-panels-resize-handle-line] {
+  opacity: 0.6 !important;
+}
+
+/* The autoplay cursor is presentational, so it cannot trigger :hover or
+   :active on the real panel buttons. Mirror those states while a scripted
+   click is in flight so the control visibly responds under the pointer. */
+[data-home-hero] [data-home-panel-control][data-fake-active] {
+  color: var(--primary);
+  background: color-mix(in oklab, var(--primary) 16%, transparent);
+  transform: scale(0.94);
+}
+
+/* iOS-style grab handle: a flat 1px seam with a single rounded pill
+   centered on it as the actual handle indicator. The line keeps its
+   default 1px width (no border-radius) and the ::after draws the pill,
+   overflowing the line via absolute positioning. */
+[data-resizable-panels-demo-frame].demo-grippy [data-resizable-panels-resize-handle][data-orientation="vertical"] [data-resizable-panels-resize-handle-line]::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 4px;
+  height: 32px;
+  transform: translate(-50%, -50%);
+  background: var(--resizable-panels-resize-handle-color);
+  border-radius: 999px;
+  pointer-events: none;
+  transition: background 150ms;
+}
+[data-resizable-panels-demo-frame].demo-grippy [data-resizable-panels-resize-handle][data-orientation="horizontal"] [data-resizable-panels-resize-handle-line]::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 32px;
+  height: 4px;
+  transform: translate(-50%, -50%);
+  background: var(--resizable-panels-resize-handle-color);
+  border-radius: 999px;
+  pointer-events: none;
+  transition: background 150ms;
+}
+[data-resizable-panels-demo-frame].demo-grippy [data-resizable-panels-resize-handle][data-active] [data-resizable-panels-resize-handle-line]::after {
+  background: var(--primary);
+}
+
+/* Hover-reveal: invisible at rest, fades to a thick pill on hover/active.
+   Overrides the [data-resizable-panels-demo-frame] opacity:1 default by chaining
+   `.demo-hover-reveal` for higher specificity. */
+[data-resizable-panels-demo-frame].demo-hover-reveal [data-resizable-panels-resize-handle][data-orientation="vertical"] [data-resizable-panels-resize-handle-line] {
+  width: 6px !important;
+  border-radius: 999px;
+  opacity: 0 !important;
+  transition: opacity 150ms;
+}
+[data-resizable-panels-demo-frame].demo-hover-reveal [data-resizable-panels-resize-handle][data-orientation="horizontal"] [data-resizable-panels-resize-handle-line] {
+  height: 6px !important;
+  border-radius: 999px;
+  opacity: 0 !important;
+  transition: opacity 150ms;
+}
+[data-resizable-panels-demo-frame].demo-hover-reveal [data-resizable-panels-resize-handle][data-active] [data-resizable-panels-resize-handle-line] {
+  opacity: 1 !important;
+}
+
+/* Shiki code blocks: CodeBlock highlights once with both themes and emits
+   per-token `--shiki-light`/`--shiki-dark` variables (defaultColor: false,
+   so tokens carry no inline color). These rules pick which variable wins,
+   letting the `.dark` class toggle restyle blocks without re-highlighting.
+   Theme backgrounds are ignored in favor of the site's card color so
+   blocks sit naturally on docs and demo surfaces in both modes. */
+.code-block pre {
+  @apply overflow-x-auto rounded-lg border border-border bg-card px-4 py-3.5 font-mono text-xs leading-relaxed;
+}
+[data-docs-article] .code-block pre {
+  border-radius: 0.5rem;
+  background: color-mix(in oklab, var(--background) 65%, var(--card));
+  padding: 1.125rem 1.25rem;
+  font-size: 0.875rem;
+  line-height: 1.75;
+}
+.code-block .shiki span {
+  color: var(--shiki-light);
+}
+.dark .code-block .shiki span {
+  color: var(--shiki-dark);
+}
+
+/* Line-number gutter via CSS counters. --code-gutter is set inline by
+   CodeBlock to the digit width of the largest line number, keeping the
+   gutter exactly as wide as it needs to be. */
+.code-block[data-line-numbers] code {
+  counter-reset: line;
+}
+.code-block[data-line-numbers] .line::before {
+  counter-increment: line;
+  content: counter(line);
+  display: inline-block;
+  width: var(--code-gutter, 2ch);
+  margin-right: 1.25rem;
+  text-align: right;
+  color: var(--muted-foreground);
+  opacity: 0.55;
+}

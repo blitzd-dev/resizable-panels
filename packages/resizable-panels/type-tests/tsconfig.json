@@ -1,0 +1,20 @@
+{
+  "//": "Editor feedback only, and only after `bun run build` (paths points at built declarations so this mirrors the packed gate). The release gate in scripts/package-smoke-test.mjs re-compiles these fixtures against the real tarball and is authoritative.",
+  "compilerOptions": {
+    "target": "ES2023",
+    "lib": ["ES2023", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "jsx": "react-jsx",
+    "strict": true,
+    "skipLibCheck": false,
+    "exactOptionalPropertyTypes": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "verbatimModuleSyntax": true,
+    "paths": {
+      "@blitzd/resizable-panels": ["../dist/index.d.ts"]
+    }
+  },
+  "include": ["positive.tsx", "negative.tsx"]
+}

@@ -1,0 +1,237 @@
+/*
+ * Minimal styling for the e2e fixture pages. Deliberately not Tailwind —
+ * the harness should not pull a CSS framework into the package's devDeps.
+ * Nothing here is asserted on by the specs except layout-critical sizing
+ * (fixture-root filling the viewport, panel bodies filling their panels);
+ * colors exist only so headed runs are watchable.
+ */
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  font-family: system-ui, -apple-system, sans-serif;
+  background: #1b1b1f;
+  color: #e4e4e7;
+}
+
+/* Full-viewport page root for every fixture. */
+.fixture-root {
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  background: #232327;
+}
+
+/* Docked-panel surface. box-shadow instead of border so it never affects
+ * measured panel geometry. */
+.panel-surface {
+  background: #2c2c31;
+  box-shadow: 0 0 0 1px rgba(150, 150, 160, 0.35);
+}
+
+.collapsed-border-test {
+  border-right: 1px solid rgb(255, 0, 0);
+}
+
+.collapsed-handle-controls {
+  position: fixed;
+  z-index: 50;
+  top: 8px;
+  left: 50%;
+  display: flex;
+  gap: 8px;
+  transform: translateX(-50%);
+}
+
+.panel-body {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+
+.panel-body--grow {
+  background: rgba(120, 120, 130, 0.12);
+  border: 1px dashed rgba(150, 150, 160, 0.4);
+}
+
+.panel-body-label {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.uppercase {
+  text-transform: uppercase;
+}
+
+.readout {
+  font-family: ui-monospace, monospace;
+  font-size: 10px;
+  color: #9b9ba3;
+}
+
+/* Fixed overlay holding the open/close toggles. pointer-events split so the
+ * overlay never blocks drags on the layout underneath it. */
+.toolbar-overlay {
+  pointer-events: none;
+  position: absolute;
+  inset-inline: 0;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  padding-top: 8px;
+}
+
+.toolbar {
+  pointer-events: auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  border-radius: 6px;
+  border: 1px solid rgba(150, 150, 160, 0.35);
+  background: rgba(44, 44, 49, 0.85);
+  padding: 4px 8px;
+  backdrop-filter: blur(4px);
+}
+
+.toolbar-toggle {
+  appearance: none;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  background: transparent;
+  color: #e4e4e7;
+  font: 500 11px system-ui, sans-serif;
+  padding: 3px 8px;
+  cursor: pointer;
+}
+
+.toolbar-toggle:hover {
+  background: rgba(150, 150, 160, 0.2);
+}
+
+.toolbar-toggle[aria-pressed="true"] {
+  background: rgba(150, 150, 160, 0.28);
+  border-color: rgba(150, 150, 160, 0.4);
+}
+
+/* Render-count badges overlay (RenderCountTest). */
+.counters-overlay {
+  pointer-events: none;
+  position: absolute;
+  inset-inline: 0;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  padding-top: 8px;
+}
+
+/* Native-dialog drawer for ResponsiveDrawerTest. */
+.drawer {
+  position: fixed;
+  inset-block: 0;
+  margin: 0;
+  border: none;
+  padding: 16px;
+  height: 100vh;
+  max-height: 100vh;
+  width: 320px;
+  background: #2c2c31;
+  color: #e4e4e7;
+}
+
+.drawer--start {
+  inset-inline-start: 0;
+  inset-inline-end: auto;
+}
+
+.drawer--end {
+  inset-inline-start: auto;
+  inset-inline-end: 0;
+}
+
+.drawer::backdrop {
+  background: rgba(0, 0, 0, 0.4);
+}
+
+.drawer-main {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.drawer-panel-content {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 12px;
+  font-size: 14px;
+}
+
+.drawer-panel-content h2 {
+  margin: 0;
+  font-size: 14px;
+}
+
+.drawer-input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 4px 6px;
+  border-radius: 4px;
+  border: 1px solid rgba(150, 150, 160, 0.35);
+  background: #232327;
+  color: #e4e4e7;
+  font: 12px system-ui, sans-serif;
+}
+
+/* Scrollable region whose scroll position must survive panel ⇄ sheet. */
+.drawer-scroll {
+  max-height: 120px;
+  overflow: auto;
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.drawer-scroll p {
+  margin: 0;
+}
+
+.counter {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.counter-value {
+  font-family: ui-monospace, monospace;
+  font-size: 20px;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Index page shown when no fixture route matches. */
+.route-index {
+  padding: 24px;
+  font-family: ui-monospace, monospace;
+}
+
+.route-index a {
+  display: block;
+  color: #8ab4f8;
+  padding: 2px 0;
+}

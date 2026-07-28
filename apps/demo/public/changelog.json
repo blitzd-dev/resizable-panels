@@ -1,0 +1,20 @@
+{
+  "version": "https://jsonfeed.org/version/1.1",
+  "title": "@blitzd/resizable-panels changelog",
+  "home_page_url": "https://resizable-panels.blitzd.dev/changelog",
+  "feed_url": "https://resizable-panels.blitzd.dev/changelog.json",
+  "description": "New features, behavior changes, fixes, and security updates for @blitzd/resizable-panels.",
+  "items": [
+    {
+      "id": "https://resizable-panels.blitzd.dev/changelog/2026-07-first-public-release",
+      "url": "https://resizable-panels.blitzd.dev/changelog/2026-07-first-public-release",
+      "title": "0.1.0 — 🎉 The first public release",
+      "content_text": "A headless foundation for building animated, resizable application layouts in React.",
+      "date_published": "2026-07-28T00:00:00Z",
+      "tags": [
+        "release",
+        "published"
+      ]
+    }
+  ]
+}

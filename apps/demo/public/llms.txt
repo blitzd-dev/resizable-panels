@@ -1,0 +1,39 @@
+# @blitzd/resizable-panels
+
+> Headless, animated, resizable panel layout primitives for React. Docked sidebars, peer splits, collapse to rails, persistence, and full keyboard support.
+
+The preferred machine-readable docs are the per-page Markdown files under `/docs/*.md`. HTML docs at `/docs/*` match the same content and include interactive examples.
+
+## Docs
+
+- [Introduction](https://resizable-panels.blitzd.dev/docs/introduction.md): What Resizable Panels is, what it owns versus what your app owns, and where to start.
+- [Installation & first layout](https://resizable-panels.blitzd.dev/docs/installation.md): Install the package and render a working, draggable split in a few lines.
+- [Mental model](https://resizable-panels.blitzd.dev/docs/mental-model.md): Group, panel, handle; docked vs peer; preferred vs rendered size; the implicit provider.
+- [Building layouts](https://resizable-panels.blitzd.dev/docs/building-layouts.md): Docked sidebars, peer columns, nested grids, and pinned or locked panels.
+- [Sizing & constraints](https://resizable-panels.blitzd.dev/docs/sizing.md): The SizeSpec grammar, min/max bounds, over-constrained layouts, and container resize.
+- [Collapsing panels](https://resizable-panels.blitzd.dev/docs/collapsing.md): Collapse off-canvas, to a compact rail, by dragging past a threshold, or automatically when space runs out.
+- [Controlled state & events](https://resizable-panels.blitzd.dev/docs/controlled-state.md): Seed, control, and observe the layout with defaultValue, value/onValueChange, and change metadata.
+- [Persisting layouts](https://resizable-panels.blitzd.dev/docs/persistence.md): Save and restore layouts across reloads, plug in custom storage, and gate on the restore lifecycle.
+- [Driving panels from code](https://resizable-panels.blitzd.dev/docs/imperative-and-actions.md): apiRef handles, the usePanelActions dispatcher, and reading authoritative action results.
+- [Reading state with hooks](https://resizable-panels.blitzd.dev/docs/reading-state.md): Subscribe to a panel, a group, or provider-wide activity with the narrowest hook for the job.
+- [Styling & slotProps](https://resizable-panels.blitzd.dev/docs/styling-and-slot-props.md): Style panels through data attributes and CSS variables, and customize the inner slots.
+- [Responsive layouts](https://resizable-panels.blitzd.dev/docs/responsive.md): Switch orientation at breakpoints, auto-collapse on small screens, and pause work while resizing.
+- [Keyboard & accessibility](https://resizable-panels.blitzd.dev/docs/accessibility.md): The window-splitter pattern: key bindings, focus behavior, and the ARIA contract.
+- [PanelGroup](https://resizable-panels.blitzd.dev/docs/panel-group.md): The container that holds panels — orientation, direction, cursor policy, and every prop.
+- [Panel](https://resizable-panels.blitzd.dev/docs/panel.md): Docked and peer panels — sizing, collapsing, docking, and every prop.
+- [PanelResizeHandle](https://resizable-panels.blitzd.dev/docs/panel-resize-handle.md): The separator between panels — placement, hit area, gutters, keyboard steps, and every prop.
+- [PanelProvider & hooks](https://resizable-panels.blitzd.dev/docs/provider-and-hooks.md): The explicit provider boundary, locators, and the signatures of every hook.
+- [Components & props](https://resizable-panels.blitzd.dev/docs/component-props.md): Props for PanelGroup, Panel, PanelResizeHandle, and advanced panel slots.
+- [Layout & sizing types](https://resizable-panels.blitzd.dev/docs/layout-types.md): Axes, panel roles, logical sides, animation, cascades, collapse behavior, and SizeSpec.
+- [Value & event types](https://resizable-panels.blitzd.dev/docs/value-event-types.md): Controlled layout values, change metadata, resize lifecycle events, reasons, and triggers.
+- [Action & API types](https://resizable-panels.blitzd.dev/docs/action-types.md): Panel and group APIs, shared actions, options, and authoritative result unions.
+- [Provider & hook types](https://resizable-panels.blitzd.dev/docs/provider-hook-types.md): Provider addresses, reactive control snapshots, dispatchers, locators, and lookup results.
+- [Persistence types](https://resizable-panels.blitzd.dev/docs/persistence-types.md): Persistence configuration, storage adapters, restore status, and errors.
+
+## Optional
+
+- [Full docs dump](https://resizable-panels.blitzd.dev/llms-full.txt): concatenated Markdown for all documentation pages
+- [Changelog feed (JSON)](https://resizable-panels.blitzd.dev/changelog.json)
+- [Changelog feed (RSS)](https://resizable-panels.blitzd.dev/changelog.xml)
+- [npm package](https://www.npmjs.com/package/@blitzd/resizable-panels)
+- [GitHub repository](https://github.com/blitzd-dev/resizable-panels)

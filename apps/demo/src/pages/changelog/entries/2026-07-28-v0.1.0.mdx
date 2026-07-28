@@ -1,0 +1,77 @@
+export const meta = {
+  slug: "2026-07-first-public-release",
+  version: "0.1.0",
+  date: "2026-07-28",
+  title: "🎉 The first public release",
+  summary: "A headless foundation for building animated, resizable application layouts in React.",
+  draft: false,
+  latest: true,
+}
+
+<Changes kind="added">
+  <Change title="Resizable panel primitives">
+    `PanelGroup`, `Panel`, `PanelResizeHandle`, and an optional `PanelProvider`
+    for building docked and peer panel layouts with pointer, touch, and
+    keyboard resizing. A standalone `PanelGroup` installs an implicit provider,
+    so the explicit `PanelProvider` is only needed to share state across groups.
+  </Change>
+  <Change title="Docked and peer layouts">
+    Docked and peer panels with nested groups and per-axis relative sizing.
+    Docked panels collapse animated, instantly, or to a `collapsedSize` rail,
+    and `collapseBelow` thresholds close a panel mid-drag with hysteresis and
+    a configurable close behavior.
+  </Change>
+  <Change title="Animation control">
+    A group-level `animation` prop disables all library-owned transitions or
+    overrides the default 300ms duration and easing per group.
+  </Change>
+  <Change title="Drag cascades">
+    Sibling drag cascades with a `cascade` prop choosing mid-drag reversal
+    semantics — `"reversible"` retraces the cascade exactly, `"latching"`
+    keeps far panels pushed until released space reaches them. Per panel,
+    `disabled` blocks all resizing and `pinned` exempts a docked panel from
+    other handles' cascades.
+  </Change>
+  <Change title="Container resize behavior">
+    A per-panel `containerResizeBehavior` (`"fixed"` or `"proportional"`)
+    decides how expanded panels respond when the group's container changes
+    size.
+  </Change>
+  <Change title="Group value model">
+    A `PanelGroupValue` state model with controlled and uncontrolled modes.
+    `onValueChange` reports reason and trigger metadata, and is kept separate
+    from the pointer resize lifecycle exposed through `onResizeStart` and
+    `onResizeEnd`.
+  </Change>
+  <Change title="Imperative API and hooks">
+    Imperative `apiRef` controllers (`PanelApi`, `PanelGroupApi`) alongside
+    locator-keyed hooks: `usePanelControls`, `usePanelActions`,
+    `usePanelRegistry`, `usePanelCollapsed`, `usePanelInteractionState`, and
+    `usePanelGroupState`. Action results are authoritative and report the
+    value the group actually accepted.
+  </Change>
+  <Change title="Persistence">
+    A grouped `persistence` option with read, deserialize, and write error
+    reporting plus restore-status callbacks.
+  </Change>
+  <Change title="SizeSpec grammar">
+    A strict, CSS-compatible `SizeSpec` grammar with field-specific fallbacks
+    and development-only diagnostics.
+  </Change>
+  <Change title="Accessibility">
+    Handles implement the ARIA separator pattern (`aria-valuenow`, `min`,
+    `max`, `aria-controls`, `aria-orientation`) and resize with the arrow
+    keys, `Home`, and `End`, at full parity with pointer gestures.
+  </Change>
+  <Change title="RTL and SSR">
+    Right-to-left layouts via `dir="rtl"` on the group, touch and pointer
+    input, and SSR-safe rendering.
+  </Change>
+</Changes>
+
+<Section>
+  Built for React 18 and 19, with zero runtime dependencies — tree-shakeable
+  ESM with CI-enforced bundle-size budgets. Under 0.x, minor versions may
+  carry breaking changes; the stable-contract intent is enforced by the
+  packed type-contract tests rather than by a 1.0.0 major.
+</Section>

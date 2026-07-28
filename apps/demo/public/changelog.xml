@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+  <channel>
+    <title>@blitzd/resizable-panels changelog</title>
+    <link>https://resizable-panels.blitzd.dev/changelog</link>
+    <description>New features, behavior changes, fixes, and security updates for @blitzd/resizable-panels.</description>
+    <language>en-us</language>
+    <item>
+      <title>0.1.0 — 🎉 The first public release</title>
+      <link>https://resizable-panels.blitzd.dev/changelog/2026-07-first-public-release</link>
+      <guid isPermaLink="true">https://resizable-panels.blitzd.dev/changelog/2026-07-first-public-release</guid>
+      <pubDate>Tue, 28 Jul 2026 00:00:00 GMT</pubDate>
+      <description>A headless foundation for building animated, resizable application layouts in React.</description>
+      <category>Release</category>
+    </item>
+  </channel>
+</rss>

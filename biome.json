@@ -1,0 +1,133 @@
+{
+  "$schema": "https://biomejs.dev/schemas/2.4.16/schema.json",
+  "vcs": {
+    "enabled": true,
+    "clientKind": "git",
+    "useIgnoreFile": true
+  },
+  "files": {
+    "ignoreUnknown": true,
+    "includes": ["**", "!**/*.css"]
+  },
+  "formatter": {
+    "enabled": true,
+    "indentStyle": "space"
+  },
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "recommended": true,
+      "correctness": {
+        "useExhaustiveDependencies": {
+          "level": "error",
+          "options": {
+            "hooks": [{ "name": "useSkipAnimation", "stableResult": [1] }]
+          }
+        }
+      },
+      "style": {
+        "noNonNullAssertion": "off",
+        "useComponentExportOnlyModules": {
+          "level": "error",
+          "options": {
+            "allowConstantExport": true
+          }
+        }
+      }
+    },
+    "domains": {
+      "react": "recommended"
+    }
+  },
+  "javascript": {
+    "formatter": {
+      "quoteStyle": "double"
+    }
+  },
+  "assist": {
+    "enabled": true,
+    "actions": {
+      "source": {
+        "organizeImports": "on"
+      }
+    }
+  },
+  "overrides": [
+    {
+      "includes": [
+        "**/*.test.ts",
+        "**/*.test.tsx",
+        "packages/*/e2e/**",
+        "packages/*/type-tests/**",
+        "apps/demo/src/components/ui/**",
+        "apps/demo/src/components/theme-provider.tsx",
+        "apps/demo/src/components/showcase/home-demo/scenes.tsx",
+        "apps/demo/src/components/showcase/responsive-drawer.tsx",
+        "apps/demo/src/pages/arena/**"
+      ],
+      "linter": {
+        "rules": {
+          "style": {
+            "useComponentExportOnlyModules": "off"
+          }
+        }
+      }
+    },
+    {
+      "includes": ["apps/demo/src/components/ui/**"],
+      "linter": {
+        "rules": {
+          "a11y": {
+            "useSemanticElements": "off"
+          },
+          "correctness": {
+            "useExhaustiveDependencies": "off"
+          },
+          "suspicious": {
+            "noDocumentCookie": "off"
+          }
+        }
+      }
+    },
+    {
+      "includes": ["apps/demo/src/components/fake-ui/ide/editor.tsx"],
+      "linter": {
+        "rules": {
+          "suspicious": {
+            "noSuspiciousSemicolonInJsx": "off"
+          }
+        }
+      }
+    },
+    {
+      "includes": ["apps/demo/src/pages/docs/content/**"],
+      "linter": {
+        "rules": {
+          "correctness": {
+            "useJsxKeyInIterable": "off"
+          }
+        }
+      }
+    },
+    {
+      "includes": ["apps/demo/src/pages/docs/examples/**"],
+      "linter": {
+        "rules": {
+          "a11y": {
+            "useValidAnchor": "off"
+          }
+        }
+      }
+    },
+    {
+      "includes": ["apps/demo/**"],
+      "linter": {
+        "rules": {
+          "suspicious": {
+            "noArrayIndexKey": "off"
+          }
+        }
+      }
+    }
+  ]
+}

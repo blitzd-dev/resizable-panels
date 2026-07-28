@@ -1,0 +1,52 @@
+name: Publish
+
+# Tag-triggered publish for @blitzd/resizable-panels. Push an annotated
+# `vX.Y.Z` tag whose version matches packages/resizable-panels/package.json.
+# The job re-runs the full packaging gate before publishing, and publishes
+# with npm provenance.
+on:
+  push:
+    tags:
+      - "v*.*.*"
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      contents: read
+      # Required for npm provenance attestation.
+      id-token: write
+    defaults:
+      run:
+        working-directory: packages/resizable-panels
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: 1.2.15
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          registry-url: "https://registry.npmjs.org"
+      - name: Install dependencies
+        working-directory: ${{ github.workspace }}
+        run: bun install --frozen-lockfile
+      - name: Install Playwright browsers
+        run: bunx playwright install --with-deps chromium firefox webkit
+      # prepack (build + entry-point verification) and the packed tarball smoke
+      # test are the gate (§15). The dry-run gate additionally checks tag/version
+      # agreement, the changelog entry, tarball contents, and that the metadata
+      # URLs resolve.
+      - name: Build and verify entry points
+        run: bun run prepack
+      - name: Packed tarball smoke test
+        run: bun run test:package
+      - name: Publish dry-run gate
+        run: bun run verify:publish
+        env:
+          RELEASE_TAG: ${{ github.ref_name }}
+      - name: Publish to npm with provenance
+        run: npm publish --provenance --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

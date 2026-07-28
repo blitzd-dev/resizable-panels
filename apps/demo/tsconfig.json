@@ -1,0 +1,15 @@
+{
+  "files": [],
+  "references": [
+    { "path": "./tsconfig.app.json" },
+    { "path": "./tsconfig.node.json" }
+  ],
+  "compilerOptions": {
+    "paths": {
+      "@/*": ["./src/*"],
+      "@blitzd/resizable-panels": [
+        "../../packages/resizable-panels/src/index.ts"
+      ]
+    }
+  }
+}

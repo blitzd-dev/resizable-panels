@@ -1,0 +1,12 @@
+{
+  // Solution-style config: no files of its own, just project references so
+  // editors opening the repo root associate each source file with the right
+  // project (otherwise the TS server can fall back to an inferred ES5
+  // project and report bogus errors like TS2802 on Map iteration).
+  "files": [],
+  "references": [
+    { "path": "./packages/resizable-panels" },
+    { "path": "./apps/demo/tsconfig.app.json" },
+    { "path": "./apps/demo/tsconfig.node.json" }
+  ]
+}

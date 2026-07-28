@@ -1,0 +1,180 @@
+import { mkdir, readdir, readFile, writeFile } from "node:fs/promises";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+import {
+  type ChangelogMetaEntry,
+  type ChangelogReleaseMeta,
+  isChangelogReleaseMeta,
+  validateChangelogCollection,
+} from "../src/pages/changelog/schema";
+
+const siteUrl = "https://resizable-panels.blitzd.dev";
+const feedTitle = "@blitzd/resizable-panels changelog";
+const feedDescription =
+  "New features, behavior changes, fixes, and security updates for @blitzd/resizable-panels.";
+
+const entriesDirectory = fileURLToPath(
+  new URL("../src/pages/changelog/entries/", import.meta.url),
+);
+const outputDirectory = fileURLToPath(new URL("../public/", import.meta.url));
+const generatedMetadataPath = fileURLToPath(
+  new URL("../src/pages/changelog/generated-metadata.ts", import.meta.url),
+);
+
+function extractObject(source: string, fileName: string) {
+  const exportIndex = source.indexOf("export const meta");
+  const start = source.indexOf("{", exportIndex);
+  if (exportIndex === -1 || start === -1) {
+    throw new Error(`Missing metadata export in ${fileName}`);
+  }
+
+  let depth = 0;
+  let quote = "";
+  let escaped = false;
+
+  for (let index = start; index < source.length; index += 1) {
+    const character = source[index];
+    if (quote) {
+      if (escaped) escaped = false;
+      else if (character === "\\") escaped = true;
+      else if (character === quote) quote = "";
+      continue;
+    }
+    if (character === '"' || character === "'") {
+      quote = character;
+      continue;
+    }
+    if (character === "{") depth += 1;
+    if (character === "}") {
+      depth -= 1;
+      if (depth === 0) return source.slice(start, index + 1);
+    }
+  }
+
+  throw new Error(`Unclosed metadata export in ${fileName}`);
+}
+
+function parseMetadata(source: string, fileName: string): ChangelogReleaseMeta {
+  const objectSource = extractObject(source, fileName)
+    .replace(/([{,]\s*)([A-Za-z_$][A-Za-z0-9_$]*)(\s*:)/g, '$1"$2"$3')
+    .replace(/,\s*}/g, "}");
+
+  let value: unknown;
+  try {
+    value = JSON.parse(objectSource);
+  } catch (error) {
+    throw new Error(`Metadata in ${fileName} must use JSON-compatible values`, {
+      cause: error,
+    });
+  }
+
+  if (!isChangelogReleaseMeta(value)) {
+    throw new Error(`Invalid changelog metadata in ${fileName}`);
+  }
+  return value;
+}
+
+function xml(value: string) {
+  return value
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&apos;");
+}
+
+function releaseUrl(meta: ChangelogReleaseMeta) {
+  return `${siteUrl}/changelog/${meta.slug}`;
+}
+
+async function readEntries(): Promise<ChangelogMetaEntry[]> {
+  const fileNames = (await readdir(entriesDirectory))
+    .filter((fileName) => fileName.endsWith(".mdx"))
+    .sort()
+    .reverse();
+
+  return Promise.all(
+    fileNames.map(async (fileName) => ({
+      source: `./entries/${fileName}`,
+      meta: parseMetadata(
+        await readFile(path.join(entriesDirectory, fileName), "utf8"),
+        fileName,
+      ),
+    })),
+  );
+}
+
+async function generate() {
+  const entries = await readEntries();
+  validateChangelogCollection(entries);
+
+  const published = entries
+    .filter(
+      ({ meta }) => !meta.draft && meta.version !== "Unreleased" && meta.date,
+    )
+    .sort(({ meta: left }, { meta: right }) =>
+      String(right.date).localeCompare(String(left.date)),
+    );
+
+  const jsonFeed = {
+    version: "https://jsonfeed.org/version/1.1",
+    title: feedTitle,
+    home_page_url: `${siteUrl}/changelog`,
+    feed_url: `${siteUrl}/changelog.json`,
+    description: feedDescription,
+    items: published.map(({ meta }) => ({
+      id: releaseUrl(meta),
+      url: releaseUrl(meta),
+      external_url: meta.releaseUrl,
+      title: `${meta.version} — ${meta.title}`,
+      content_text: meta.summary,
+      date_published: `${meta.date}T00:00:00Z`,
+      tags: ["release", meta.yanked ? "yanked" : "published"],
+    })),
+  };
+
+  const rssItems = published
+    .map(({ meta }) => {
+      const url = releaseUrl(meta);
+      const publishedAt = new Date(`${meta.date}T00:00:00Z`).toUTCString();
+      return `    <item>
+      <title>${xml(`${meta.version} — ${meta.title}`)}</title>
+      <link>${xml(url)}</link>
+      <guid isPermaLink="true">${xml(url)}</guid>
+      <pubDate>${xml(publishedAt)}</pubDate>
+      <description>${xml(meta.summary)}</description>
+      <category>${meta.yanked ? "Yanked" : "Release"}</category>
+    </item>`;
+    })
+    .join("\n");
+
+  const rssFeed = `<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+  <channel>
+    <title>${xml(feedTitle)}</title>
+    <link>${xml(`${siteUrl}/changelog`)}</link>
+    <description>${xml(feedDescription)}</description>
+    <language>en-us</language>
+${rssItems}
+  </channel>
+</rss>
+`;
+
+  const generatedMetadata = `import type { ChangelogMetaEntry } from "./schema";
+
+// Generated by scripts/generate-changelog-feeds.ts. Edit the MDX entries instead.
+export const generatedChangelogMetadata = ${JSON.stringify(entries, null, 2)} satisfies ChangelogMetaEntry[];
+`;
+
+  await mkdir(outputDirectory, { recursive: true });
+  await Promise.all([
+    writeFile(
+      path.join(outputDirectory, "changelog.json"),
+      `${JSON.stringify(jsonFeed, null, 2)}\n`,
+    ),
+    writeFile(path.join(outputDirectory, "changelog.xml"), rssFeed),
+    writeFile(generatedMetadataPath, generatedMetadata),
+  ]);
+}
+
+await generate();

@@ -28,8 +28,10 @@ jobs:
           # Trusted publishing needs Node ≥ 22.14 and npm ≥ 11.5.1.
           node-version: 22
           registry-url: https://registry.npmjs.org
-      - name: Install latest npm (OIDC publish support)
-        run: npm install -g npm@latest
+      # OIDC trusted publishing needs npm ≥ 11.5.1. Pin major so
+      # `npm pack --json` shape changes do not surprise the publish gate.
+      - name: Install npm (OIDC publish support)
+        run: npm install -g npm@11.5.1
       - name: Install dependencies
         working-directory: ${{ github.workspace }}
         run: bun install --frozen-lockfile

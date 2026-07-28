@@ -86,8 +86,12 @@ try {
     "--pack-destination",
     packDestination,
   ]);
-  const manifest = JSON.parse(manifestJson);
-  const files = (manifest[0]?.files ?? []).map((entry) => entry.path);
+  // npm ≤11: `[{ files }]`; npm ≥12: `{ "<name>": { files } }`.
+  const packed = JSON.parse(manifestJson);
+  const manifest = Array.isArray(packed)
+    ? packed[0]
+    : Object.values(packed)[0];
+  const files = (manifest?.files ?? []).map((entry) => entry.path);
 
   const required = [
     "package.json",
